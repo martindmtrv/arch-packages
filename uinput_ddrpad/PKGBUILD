@@ -1,0 +1,31 @@
+pkgname=uinput_ddrpad-git
+pkgver=1.0
+pkgrel=1
+pkgdesc="Use the HIDRAW device to get vendor specific information from input reports of Konami's DanceDanceRevolution Mat for PS3 and make it usable in Applications through the uinput kernel module (via libsuinput)"
+url="https://github.com/Orochimarufan/HIDRAW"
+arch=("any")
+license=("GPL3")
+depends=(make libsuinput-git)
+provides=("${pkgname%-git}")
+conflicts=("${pkgname%-git}")
+source=("git+https://github.com/Orochimarufan/HIDRAW.git")
+sha256sums=("SKIP")
+
+location=/usr/local/lib/uinput_ddrpad/uinput_ddrpad.real
+
+build()
+{
+  cd "HIDRAW/uinput_ddrpad"
+  gcc -Wall -std=c11 -c -o main.o main.c
+  gcc -Wall -std=c11 -o uinput_ddrpad.real main.o -lsuinput -L/usr/local/lib
+}
+
+package()
+{
+  cd "HIDRAW/uinput_ddrpad"
+  echo "#!/bin/sh" >> uinput_ddrpad
+  echo "export LD_LIBRARY_PATH=/usr/local/lib" >> uinput_ddrpad
+  echo "exec ${location} \$@" >> uinput_ddrpad
+  sudo install -D -m755 uinput_ddrpad /usr/local/bin/uinput_ddrpad
+  sudo install -D -m755 uinput_ddrpad.real ${location}
+}

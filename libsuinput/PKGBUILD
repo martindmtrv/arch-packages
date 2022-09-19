@@ -1,0 +1,31 @@
+pkgname=libsuinput-git
+pkgver=0.6.1.r7.g729d5e0
+pkgrel=1
+pkgdesc="Thin userspace library on top of Linux uinput kernel module."
+url="https://github.com/tuomasjjrasanen/${pkgname%-git}"
+arch=("any")
+license=("GPL3")
+depends=(make)
+provides=("${pkgname%-git}")
+conflicts=("${pkgname%-git}")
+source=("git+https://github.com/tuomasjjrasanen/${pkgname%-git}.git")
+sha256sums=("SKIP")
+
+pkgver()
+{
+  cd "${pkgname%-git}"
+  git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build()
+{
+  cd "${pkgname%-git}"
+  sh autogen.sh
+  ./configure && make
+}
+
+package()
+{
+  cd "${pkgname%-git}"
+  sudo make install
+}
