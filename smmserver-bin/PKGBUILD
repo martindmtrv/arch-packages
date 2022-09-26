@@ -1,0 +1,29 @@
+pkgname=SmmServer-bin
+pkgver=9
+pkgrel=1
+pkgdesc="SmmServer for Mario Maker Cemu"
+url="https://github.com/SmmServer/SmmServer"
+arch=("any")
+license=("GPL3")
+depends=(wine)
+makedepends=(megacmd)
+provides=("${pkgname%-bin}")
+conflicts=("${pkgname%-bin}")
+source=("git+https://github.com/martindmtrv/arch-packages.git")
+megalink=("https://mega.nz/file/j8JGhJaZ#3ro3HZEZTNHTnT_VNi_5PYQcQQJbKaP5e3-Zk4b6cz0")
+sha256sums=("SKIP")
+
+prepare() 
+{
+  mega-get "${megalink}"
+}
+
+build()
+{
+  unzip "${source}"
+}
+
+package()
+{
+  echo "hello"
+}
