@@ -1,26 +1,27 @@
-pkgname=SmmServer-bin
+pkgname=smmserver-bin
 pkgver=9
 pkgrel=1
 pkgdesc="SmmServer for Mario Maker Cemu"
 url="https://github.com/SmmServer/SmmServer"
 arch=("any")
 license=("GPL3")
+Contributer="martindmtrv"
 depends=(wine)
-makedepends=(megacmd)
+makedepends=(megacmd git)
 provides=("${pkgname%-bin}")
 conflicts=("${pkgname%-bin}")
 source=("git+https://github.com/martindmtrv/arch-packages.git")
-megalink=("https://mega.nz/file/j8JGhJaZ#3ro3HZEZTNHTnT_VNi_5PYQcQQJbKaP5e3-Zk4b6cz0")
+_megalink=("https://mega.nz/file/j8JGhJaZ#3ro3HZEZTNHTnT_VNi_5PYQcQQJbKaP5e3-Zk4b6cz0")
 sha256sums=("SKIP")
 
 prepare() 
 {
-  mega-get "${megalink}"
+  mega-get "${_megalink}"
 }
 
 build()
 {
-  unzip "${pkgname%-bin}Final_v${pkgver}.zip"
+  unzip "SmmServerFinal_v${pkgver}.zip"
 }
 
 package()
@@ -34,5 +35,5 @@ package()
   mv "arch-packages/smmserver-bin/${pkgname%-bin}.png" "${pkgdir}/usr/share/${pkgname}/"
   mv "arch-packages/smmserver-bin/${pkgname%-bin}.desktop" "${pkgdir}/usr/share/applications/"
   install -D -m755 "arch-packages/smmserver-bin/${pkgname%-bin}" "${pkgdir}/usr/bin/${pkgname%-bin}"
-  mv "${pkgname%-bin}Final" "${pkgdir}/usr/lib/${pkgname%-bin}/"
+  mv "SmmServerFinal" "${pkgdir}/usr/lib/${pkgname%-bin}/"
 }
