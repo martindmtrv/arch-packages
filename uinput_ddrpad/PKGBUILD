@@ -10,7 +10,7 @@ depends=(libsuinput)
 provides=("${pkgname%-git}")
 conflicts=("${pkgname%-git}")
 source=("git+https://github.com/Orochimarufan/HIDRAW.git")
-_secondarysource=("git+https://github.com/martindmtrv/arch-packages.git")
+_secondarysource=("https://github.com/martindmtrv/arch-packages.git")
 sha256sums=("SKIP")
 
 prepare()
@@ -30,7 +30,10 @@ package()
   mkdir -p "${pkgdir}/usr/lib/${pkgname%-git}"
   mkdir -p "${pkgdir}/usr/bin/"
 
-  install -D -m755 "arch-packages/smmserver-bin/${pkgname%-bin}" "${pkgname%-git}/usr/bin"
+  pwd
+  echo "arch-packages/${pkgname%-git}/${pkgname%-git}"
+  echo "${pkgname%-git}/usr/bin/${pkgname%-git}"
+  install -D -m755 "arch-packages/${pkgname%-git}/${pkgname%-git}" "${pkgdir}/usr/bin/${pkgname%-git}"
 
   cd "HIDRAW/uinput_ddrpad"
   
