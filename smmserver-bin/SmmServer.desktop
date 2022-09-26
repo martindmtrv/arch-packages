@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.1
+Type=Application
+Name=SmmServer
+Comment=SmmServer for Mario Maker Wii U
+Icon=/usr/share/SmmServer-bin/SmmLogo.png
+Exec=SmmServer
+Actions=
+Categories=AdventureGame;Utility;

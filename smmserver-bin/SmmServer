@@ -1,6 +1,6 @@
-!#/bin/bash
+#!/bin/bash
 
-wine SmmServer.exe
+wine /usr/lib/SmmServer/SmmServer.exe
 
 # kill background process after
 kill -9 $(pidof $(ps -ef | grep Smm))
