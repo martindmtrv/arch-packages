@@ -5,27 +5,34 @@ pkgdesc="Use the HIDRAW device to get vendor specific information from input rep
 url="https://github.com/Orochimarufan/HIDRAW"
 arch=("any")
 license=("GPL3")
-depends=(make libsuinput-git)
+makedepends=(make git)
+depends=(libsuinput)
 provides=("${pkgname%-git}")
 conflicts=("${pkgname%-git}")
 source=("git+https://github.com/Orochimarufan/HIDRAW.git")
+_secondarysource=("git+https://github.com/martindmtrv/arch-packages.git")
 sha256sums=("SKIP")
 
-location=/usr/local/lib/uinput_ddrpad/uinput_ddrpad.real
+prepare()
+{
+  git clone "${_secondarysource}"
+}
 
 build()
 {
   cd "HIDRAW/uinput_ddrpad"
   gcc -Wall -std=c11 -c -o main.o main.c
-  gcc -Wall -std=c11 -o uinput_ddrpad.real main.o -lsuinput -L/usr/local/lib
+  gcc -Wall -std=c11 -o uinput_ddrpad main.o -lsuinput -L/usr/local/lib
 }
 
 package()
 {
+  mkdir -p "${pkgdir}/usr/lib/${pkgname%-git}"
+  mkdir -p "${pkgdir}/usr/bin/"
+
+  install -D -m755 "arch-packages/smmserver-bin/${pkgname%-bin}" "${pkgname%-git}/usr/bin"
+
   cd "HIDRAW/uinput_ddrpad"
-  echo "#!/bin/sh" >> uinput_ddrpad
-  echo "export LD_LIBRARY_PATH=/usr/local/lib" >> uinput_ddrpad
-  echo "exec ${location} \$@" >> uinput_ddrpad
-  sudo install -D -m755 uinput_ddrpad /usr/local/bin/uinput_ddrpad
-  sudo install -D -m755 uinput_ddrpad.real ${location}
+  
+  install -D -m755 uinput_ddrpad "${pkgdir}/usr/lib/${pkgname%-git}"
 }
