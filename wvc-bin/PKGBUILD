@@ -1,0 +1,18 @@
+pkgname=wvc-bin
+pkgver=0.0.17
+pkgrel=1
+pkgdesc="WVC (web video caster) app for Linux"
+url="https://www.webvideocaster.app"
+arch=("any")
+license=("GPL3")
+depends=()
+provides=("${pkgname%-bin}")
+conflicts=("${pkgname%-bin}")
+source=("$pkgname-$pkgver.deb::https://drive.google.com/u/0/uc?id=1I3-m8oheRHSBt_KjrM0tL2uzqpMudaS9&export=download&confirm=t&uuid=700f5cd2-b875-401a-ba37-0c1009c5d4cd&at=AHV7M3eNDSRWa_QdPsk3etWbk0pI:1668386754607")
+sha256sums=("SKIP")
+
+package()
+{
+  cd ${pkgdir}
+  tar xf ${srcdir}/data.tar.xz
+}
