@@ -30,9 +30,6 @@ package()
   mkdir -p "${pkgdir}/usr/lib/${pkgname%-git}"
   mkdir -p "${pkgdir}/usr/bin/"
 
-  pwd
-  echo "arch-packages/${pkgname%-git}/${pkgname%-git}"
-  echo "${pkgname%-git}/usr/bin/${pkgname%-git}"
   install -D -m755 "arch-packages/${pkgname%-git}/${pkgname%-git}" "${pkgdir}/usr/bin/${pkgname%-git}"
 
   cd "HIDRAW/uinput_ddrpad"
