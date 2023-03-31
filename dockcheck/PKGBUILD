@@ -1,0 +1,25 @@
+pkgname=dockcheck-git
+pkgver=0.2.3.r1.g0e2bdc9
+pkgrel=1
+pkgdesc="A script checking updates for docker images without pulling then selectively auto-update containers."
+url="https://github.com/mag37/${pkgname%-git}"
+arch=("any")
+license=("GPL3")
+depends=("regclient-regctl")
+provides=("${pkgname%-git}")
+conflicts=("${pkgname%-git}")
+source=("git+https://github.com/mag37/${pkgname%-git}.git")
+sha256sums=("SKIP")
+
+pkgver()
+{
+  cd "${pkgname%-git}"
+  git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+package()
+{
+  mkdir -p "${pkgdir}/usr/bin"
+  mv "dockcheck/dockcheck.sh" "${pkgdir}/usr/bin/"
+  mv "dockcheck/errorCheck.sh" "${pkgdir}/usr/bin/"
+}
