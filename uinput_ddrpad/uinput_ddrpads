@@ -1,0 +1,4 @@
+#!/bin/sh
+export LD_LIBRARY_PATH=/usr/local/lib/
+
+exec /usr/lib/uinput_ddrpad/uinput_ddrpad_list $@

@@ -20,7 +20,10 @@ prepare()
 
 build()
 {
-  cd "HIDRAW/uinput_ddrpad"
+  cd arch-packages/uinput_ddrpad
+  gcc -o uinput_ddrpads main.c
+
+  cd "../../HIDRAW/uinput_ddrpad"
   gcc -Wall -std=c11 -c -o main.o main.c
   gcc -Wall -std=c11 -o uinput_ddrpad main.o -lsuinput -L/usr/local/lib
 }
@@ -31,6 +34,7 @@ package()
   mkdir -p "${pkgdir}/usr/bin/"
 
   install -D -m755 "arch-packages/${pkgname%-git}/${pkgname%-git}" "${pkgdir}/usr/bin/${pkgname%-git}"
+  install -D -m755 "arch-packages/${pkgname%-git}/${pkgname%-git}s" "${pkgdir}/usr/bin/${pkgname%-git}s"
 
   cd "HIDRAW/uinput_ddrpad"
   
